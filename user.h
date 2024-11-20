@@ -4,38 +4,45 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Order.h" // Include Order for user orders
+#include "Music.h" // Include Music for saved songs
 
 using namespace std;
 
-class Playlist;
-class Order;
-class Music;
-class Merchandise;
-
-// User class
 class User {
+private:
+    int userId;                     // Unique user ID
+    string name;                    // User's name
+    string email;                   // User's email
+    string password;                // Encrypted password (placeholder for simplicity)
+    vector<Order> orderHistory;     // List of user's past orders
+    vector<Music> savedMusic;       // List of user's saved songs or favorites
+
 public:
-    // Attributes
-    int user_id;                           // identifier for the user
-    string userName;
-    string password;
-    string email;
-    string subscriptionStatus;
-    vector<Music> personalizedRecc;        // List of recommended music
-    vector<Playlist> playlists;            // User's playlists
-    vector<Order> orderStatus;             // List of user's orders
-    vector<Music> listeningHistory;        // User's listening history
-    vector<Merchandise> wishList;          // Wishlist of merchandise
+    // Constructor
+    User(int id, const string& name, const string& email, const string& password);
 
-    // Constructor with default subscription status set to free
-    User(int id, string uName, string userPass, string emailAD, string subStatus = "Free")
-        : user_id(id), userName(uName), password(userPass), email(emailAD), subscriptionStatus(subStatus) {}
+    // Getters
+    int getUserId() const;
+    string getName() const;
+    string getEmail() const;
 
-    // Methods
-    void getUserDetails();                  // Displays user details
-    void updateProfile(string newUserData); // Updates user's profile with new email
-    void viewPurchaseHistory();             // Views purchase history
-    void createPlaylist(string playlistName); // Creates a new playlist
+    // Setters
+    void setName(const string& newName);
+    void setEmail(const string& newEmail);
+    void setPassword(const string& newPassword);
+
+    // Add order to history
+    void addOrder(const Order& order);
+
+    // View order history
+    void viewOrderHistory() const;
+
+    // Add a song to saved music
+    void addToSavedMusic(const Music& song);
+
+    // View saved music
+    void viewSavedMusic() const;
 };
 
 #endif // USER_H
