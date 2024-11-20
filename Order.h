@@ -4,44 +4,83 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Merchandise.h"  // Including the Merchandise class
+#include "Merchandise.h"
 
 using namespace std;
 
 class Order {
 public:
     // Nested PaymentData class
-    class PaymentData {
-    public:
+    class paymentData {
+    private:
         string cardNumber;
         string cvv;
         string expDate;
 
-        // Constructor for PaymentData
-        PaymentData(const string& cardnum, const string& cvv, const string& exdate)
-            : cardNumber(cardnum), cvv(cvv), expDate(exdate) {}
+    public:
+        // Constructor
+        paymentData(const string& cardnum = "", const string& cvv = "", const string& exdate = "");
+
+        // Getters
+        string getCardNumber() const { 
+            return cardNumber; 
+            }
+        string getCVV() const { 
+            return cvv; 
+            }
+        string getExpDate() const { 
+            return expDate; 
+            }
     };
 
+private:
     // Order Attributes
     int order_ID;
     int user_ID;
-    vector<Merchandise> items;  // Vector of Merchandise objects
+    vector<Merchandise> items; // Vector of Merchandise objects
     double total_amount;
     string orderDate;
     string orderStatus;
 
-    // Order Constructor with default status
-    Order(int id, int usID, const vector<Merchandise>& itemList, const string& date, double cost, const string& status = "Pending")
-        : order_ID(id), user_ID(usID), items(itemList), total_amount(cost), orderDate(date), orderStatus(status) {}
+public:
+    // Constructor with default status
+    Order(int id, int userID, const vector<Merchandise>& itemList, const string& date,
+          double cost = 0.0, const string& status = "Pending");
 
-    // Static method to create an order with a list of merchandise
+    // Static method to create an order
     static Order createOrder(int userId, const vector<Merchandise>& cartItems);
 
+    // Method to add merchandise to the order (Cart)
+    void addToCart(const Merchandise& item);
+
+    // Method to remove an item from the cart
+    void removeFromCart(int merchandiseId);
+
+    // Method to calculate the total cost
+    void updateTotalCost();
+
     // Method to process payment
-    bool processPayment(const PaymentData& paymentDetails);
+    bool processPayment(const paymentData& paymentDetails);
 
     // Method to display order details
     void displayOrderDetails() const;
+
+    // Getters for attributes
+    int getOrderID() const { 
+        return order_ID; 
+        }
+    int getUserID() const { 
+        return user_ID;
+        }
+    double getTotalAmount() const { 
+        return total_amount; 
+        }
+    string getOrderDate() const { 
+        return orderDate; 
+        }
+    string getOrderStatus() const { 
+        return orderStatus; 
+        }
 };
 
 #endif // ORDER_H
