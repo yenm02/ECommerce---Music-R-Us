@@ -2,31 +2,47 @@
 #define MERCHANDISE_H
 
 #include <iostream>
-#include <vector>
 #include <string>
 
 using namespace std;
 
 class Merchandise {
+private:
+    int merchandiseId;      // Unique identifier for merchandise
+    string productName;     // Name of the product
+    string artistMerch;          // Associated artist
+    double cost;            // Price of the product
+    string category;        // Product category (e.g., "Vinyl", "Clothing")
+    int inventory;          // Stock quantity available
+
 public:
-    int merchandiseId;
-    string productName;
-    string artist;
-    double cost;
-    string category;
+    // Constructor
+    Merchandise(int merchid, const string& prodName, const string& artist, double cost, const string& cat, int inv);
 
-    // Constructor for Merchandise class
-    Merchandise(int merchid, const string& prodName, const string& artist, double cost, const string& cat)
-        : merchandiseId(merchid), productName(prodName), artist(artist), cost(cost), category(cat) {}
+    // Display merchandise details
+    void display() const;
 
-    // Display function to show merchandise details
-    void display() const {
-        cout << "Merchandise ID: " << merchandiseId << endl;
-        cout << "Product Name: " << productName << endl;
-        cout << "Artist: " << artist << endl;
-        cout << "Cost: $" << cost << endl;
-        cout << "Category: " << category << endl;
-    }
+    // Getters
+    int getMerchandiseId() const;
+    string getProductName() const;
+    string getArtistMerch() const;
+    double getCost() const;
+    string getCategory() const;
+    int getInventory() const;
+
+    // Setters
+    void setProductName(const string& name);
+    void setArtist(const string& art);
+    void setCost(double price);
+    void setCategory(const string& cat);
+    void setInventory(int inv);
+
+    // Check availability
+    bool checkAvailability() const;
+
+    // Update inventory
+    void incrementInventory(int amount);
+    bool decrementInventory(int amount);
 };
 
 #endif // MERCHANDISE_H
