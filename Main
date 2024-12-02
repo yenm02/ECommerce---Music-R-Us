@@ -6,6 +6,8 @@
 #include <algorithm> 
 #include <vector>
 #include <limits>
+#include "ArtistProfile.h"
+
 
 using namespace std;
 
@@ -21,8 +23,24 @@ void showMainMenu() {
     cout << "3. Place an Order\n";
     cout << "4. View Order History\n";
     cout << "5. Manage User Details\n";
+    cout << "6. View Current \"Top 5 Global Artists\" Profiles \n"; 
     cout << "0. Exit\n";
     cout << "Enter your choice: ";
+}
+// Function to display all artist details
+void displayArtistDetails(const vector<ArtistProfile>& artists) {
+    cout << "\n--- Artist Profiles ---\n";
+    for (int i = 0; i < artists.size(); ++i) {
+        cout << "\nArtist " << i + 1 << " Details:\n";
+        artists[i].display();  // Calls the display function to show full details
+        cout << "-----------------------------\n";
+    }
+}
+
+// Function to handle artist profile selection
+void manageArtistProfile(const vector<ArtistProfile>& artists) {
+    // Print full artist details (name + all other information)
+    displayArtistDetails(artists);
 }
 
 void viewMerchandise(const vector<Merchandise>& merchandiseList) {
@@ -115,6 +133,14 @@ int main() {
         Merchandise(2, "Vinyl Record", "Artist B", 29.99, "Vinyl", 30)
     };
 
+    // Create 5 different artist profiles
+    vector<ArtistProfile> artists = {
+        ArtistProfile("Kendrick Lamar", 36, "USA", "Hip-Hop", "To Pimp a Butterfly", "Alright"),
+        ArtistProfile("Bruno Mars", 38, "USA", "Pop/R&B", "24K Magic", "Uptown Funk"),
+        ArtistProfile("Mariah Carey", 54, "USA", "Pop", "Daydream", "All I Want for Christmas Is You"),
+        ArtistProfile("Billie Eilish", 22, "USA", "Pop", "When We All Fall Asleep, Where Do We Go?", "Bad Guy"),
+        ArtistProfile("Lady Gaga", 38, "USA", "Pop", "The Fame Monster", "Bad Romance")
+    };
     User user(1001, "Alessio", "alessio@example.com", "password123");
 
     int choice;
@@ -138,6 +164,9 @@ int main() {
                 break;
             case 5:
                 manageUserDetails(user);
+                break;
+            case 6:
+                manageArtistProfile(artists);  
                 break;
             case 0:
                 cout << "Exiting the program. Goodbye!\n";
